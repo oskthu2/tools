@@ -1,0 +1,119 @@
+@startuml
+hide empty members
+
+class HeaderType {
+  + subject : http://hl7.eu/fhir/eps/StructureDefinition/Subject  // 1..1
+}
+
+class InsuranceInfoType {
+  + insuranceNumber : Identifier  // 0..*
+}
+
+class DocumentDataType {
+  + created : dateTime  // 1..1
+  + lastUpdate : dateTime  // 0..1
+}
+
+class NatureOfIPSType {
+}
+
+class ParticipantType {
+  + author : Identifier  // 1..*
+  + legalauthenticator : CodeableConcept  // 0..*
+}
+
+class AdditionalInfoType {
+  + reference : Reference  // 0..*
+  + relatedWith : Reference  // 0..*
+}
+
+class BodyType {
+  + results : http://hl7.eu/fhir/eps/StructureDefinition/Result  // 0..1
+}
+
+class AlertsType {
+  + allergy : http://hl7.eu/fhir/eps/StructureDefinition/Allergy  // 0..*
+}
+
+class AlertType {
+  + description : string  // 0..*
+}
+
+class MedicalHistoryType {
+  + vaccination : http://hl7.eu/fhir/eps/StructureDefinition/Vaccination  // 0..*
+  + inactiveProblem : http://hl7.eu/fhir/eps/StructureDefinition/ClosedProblem  // 0..*
+}
+
+class AnamnesisType {
+  + details : Narrative  // 0..1
+}
+
+class MedicalProblemsType {
+  + problems : http://hl7.eu/fhir/eps/StructureDefinition/Problem  // 0..1
+}
+
+class MedicalDevicesType {
+}
+
+class ProceduresType {
+}
+
+class FunctionalStatusType {
+}
+
+class MedicationSummaryType {
+  + medication : http://hl7.eu/fhir/eps/StructureDefinition/Medicine  // 1..*
+}
+
+class SocialHistoryType {
+  + referenceRange : Range  // 0..*
+}
+
+class ObservationType {
+}
+
+class PregnancyHistoryType {
+}
+
+class PatientDataType {
+}
+
+class TravelHistoryType {
+  + country : CodeableConcept  // 0..*
+  + period : dateTime  // 0..*
+}
+
+class AdvanceDirectiveType {
+}
+
+class DocumentationType {
+}
+
+class PlanOfCareType {
+  + carePlan : string  // 0..*
+}
+
+HeaderType --> InsuranceInfoType : insuranceInfo [0..1]
+HeaderType --> DocumentDataType : documentData [1..1]
+DocumentDataType --> NatureOfIPSType : natureOfIPS [1..1]
+HeaderType --> ParticipantType : participant [1..*]
+HeaderType --> AdditionalInfoType : additionalInfo [0..*]
+BodyType --> AlertsType : alerts [1..1]
+AlertsType --> AlertType : alert [0..*]
+BodyType --> MedicalHistoryType : medicalHistory [1..1]
+MedicalHistoryType --> AnamnesisType : anamnesis [0..1]
+BodyType --> MedicalProblemsType : medicalProblems [0..1]
+MedicalProblemsType --> MedicalDevicesType : medicalDevices [1..1]
+MedicalProblemsType --> ProceduresType : procedures [1..1]
+MedicalProblemsType --> FunctionalStatusType : functionalStatus [0..1]
+BodyType --> MedicationSummaryType : medicationSummary [1..1]
+BodyType --> SocialHistoryType : socialHistory [0..1]
+SocialHistoryType --> ObservationType : observation [0..*]
+BodyType --> PregnancyHistoryType : pregnancyHistory [0..1]
+BodyType --> PatientDataType : patientData [0..1]
+PatientDataType --> TravelHistoryType : travelHistory [0..1]
+PatientDataType --> AdvanceDirectiveType : advanceDirective [0..1]
+AdvanceDirectiveType --> DocumentationType : documentation [0..*]
+BodyType --> PlanOfCareType : planOfCare [0..1]
+
+@enduml
